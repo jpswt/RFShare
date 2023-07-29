@@ -1,4 +1,4 @@
-import { Media, Prisma } from '@prisma/client';
+import { Like, Media, Prisma } from '@prisma/client';
 import { Context } from '../../index';
 import { authorizedToUpdate } from '../../lib/authUpdate';
 
@@ -9,6 +9,7 @@ interface MediaArgs {
 		description?: string;
 		url?: string;
 		thumbnail?: string;
+		likes: string;
 	};
 }
 
@@ -184,6 +185,71 @@ export const mediaResolvers = {
 				},
 			],
 			media: null,
+		};
+	},
+	likesMedia: async (
+		parent: any,
+		{ mediaId, media }: { mediaId: string; media: MediaArgs['media'] },
+		{ prisma, userInfo }: Context
+	): Promise<MediaPayloadType> => {
+		const { title, artist, description, url, thumbnail } = media;
+
+		// check if user is author of media content before allowing them to modify
+		const authorizationError = await authorizedToUpdate({
+			userId: Number(userInfo.userId),
+			mediaId: Number(mediaId),
+			prisma,
+		});
+
+		if (authorizationError) {
+			return authorizationError;
+		}
+
+		// Not a matching mediaID to update
+		const matchingMedia = await prisma.media.findUnique({
+			where: {
+				id: Number(mediaId),
+			},
+		});
+		if (!matchingMedia) {
+			return {
+				userErrors: [
+					{
+						message: 'Not media matching request found',
+					},
+				],
+				media: null,
+			};
+		}
+
+		//Set Update Payload
+		const updatePayload = {
+			title,
+			artist,
+			description,
+			url,
+			thumbnail,
+		};
+
+		//Determine if obj.type has been updated, if not remove from payload
+		if (!title) delete updatePayload.title;
+		if (!artist) delete updatePayload.artist;
+		if (!description) delete updatePayload.description;
+		if (!url) delete updatePayload.url;
+		if (!thumbnail) delete updatePayload.thumbnail;
+
+		//update with payload
+
+		return {
+			userErrors: [],
+			media: prisma.media.update({
+				data: {
+					...updatePayload,
+				},
+				where: {
+					id: Number(mediaId),
+				},
+			}),
 		};
 	},
 };
