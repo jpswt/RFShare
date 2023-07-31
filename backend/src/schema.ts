@@ -20,7 +20,7 @@ type Media {
     url: String!
     thumbnail: String
     createdAt:String!
-    likes:[Like]!
+    likes:[Like!]!
     user:User!
 }
 
@@ -66,7 +66,7 @@ input MediaInput{
     description:String
     url: String
     thumbnail: String
-    likes:String
+    likes:[Like!]!
 }
 
 input AuthInput{

@@ -9,7 +9,9 @@ interface MediaArgs {
 		description?: string;
 		url?: string;
 		thumbnail?: string;
-		likes: string;
+		// likes: {
+		// 	username: string;
+		// }[];
 	};
 }
 
@@ -187,7 +189,7 @@ export const mediaResolvers = {
 			media: null,
 		};
 	},
-	likesMedia: async (
+	likeMedia: async (
 		parent: any,
 		{ mediaId, media }: { mediaId: string; media: MediaArgs['media'] },
 		{ prisma, userInfo }: Context
@@ -244,10 +246,11 @@ export const mediaResolvers = {
 			userErrors: [],
 			media: prisma.media.update({
 				data: {
-					...updatePayload,
-				},
-				where: {
-					id: Number(mediaId),
+					likes: [
+						{
+							username: userInfo.userName,
+						},
+					],
 				},
 			}),
 		};
