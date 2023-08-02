@@ -9,9 +9,6 @@ interface MediaArgs {
 		description?: string;
 		url?: string;
 		thumbnail?: string;
-		// likes: {
-		// 	username: string;
-		// }[];
 	};
 }
 
@@ -191,11 +188,9 @@ export const mediaResolvers = {
 	},
 	likeMedia: async (
 		parent: any,
-		{ mediaId, media }: { mediaId: string; media: MediaArgs['media'] },
+		{ mediaId }: { mediaId: string },
 		{ prisma, userInfo }: Context
 	): Promise<MediaPayloadType> => {
-		const { title, artist, description, url, thumbnail } = media;
-
 		// check if user is author of media content before allowing them to modify
 		const authorizationError = await authorizedToUpdate({
 			userId: Number(userInfo.userId),
@@ -224,33 +219,18 @@ export const mediaResolvers = {
 			};
 		}
 
-		//Set Update Payload
-		const updatePayload = {
-			title,
-			artist,
-			description,
-			url,
-			thumbnail,
-		};
-
-		//Determine if obj.type has been updated, if not remove from payload
-		if (!title) delete updatePayload.title;
-		if (!artist) delete updatePayload.artist;
-		if (!description) delete updatePayload.description;
-		if (!url) delete updatePayload.url;
-		if (!thumbnail) delete updatePayload.thumbnail;
-
-		//update with payload
-
 		return {
 			userErrors: [],
 			media: prisma.media.update({
+				where: {
+					id: Number(mediaId),
+				},
 				data: {
-					likes: [
-						{
-							username: userInfo.userName,
+					likes: {
+						connect: {
+							id: userInfo.userId,
 						},
-					],
+					},
 				},
 			}),
 		};

@@ -20,15 +20,15 @@ type Media {
     url: String!
     thumbnail: String
     createdAt:String!
-    likes:[Like!]!
+    likes:[User!]!
     user:User!
 }
 
-type Like {
-    id: ID!
-    username: String!
-    createAt:String!
-}
+# type Like {
+#     id: ID!
+#     username: String!
+#     createAt:String!
+# }
 
 type User {
     id:ID!
@@ -36,6 +36,7 @@ type User {
     email:String!
     profile:Profile
     media:[Media!]!
+    likedMedia:[Media!]!
 }
 
 type Profile {
@@ -66,7 +67,6 @@ input MediaInput{
     description:String
     url: String
     thumbnail: String
-    likes:[Like!]!
 }
 
 input AuthInput{
