@@ -1,4 +1,4 @@
-import { Like, Media, Prisma } from '@prisma/client';
+import { Media, Like, Prisma } from '@prisma/client';
 import { Context } from '../../index';
 import { authorizedToUpdate } from '../../lib/authUpdate';
 
@@ -17,6 +17,10 @@ interface MediaPayloadType {
 		message: string;
 	}[];
 	media: Media | Prisma.Prisma__MediaClient<Media> | null;
+}
+
+interface LikeMediaArgs {
+	mediaId: string;
 }
 
 export const mediaResolvers = {
@@ -188,51 +192,48 @@ export const mediaResolvers = {
 	},
 	likeMedia: async (
 		parent: any,
-		{ mediaId }: { mediaId: string },
+		{ mediaId }: LikeMediaArgs,
 		{ prisma, userInfo }: Context
 	): Promise<MediaPayloadType> => {
-		// check if user is author of media content before allowing them to modify
-		const authorizationError = await authorizedToUpdate({
-			userId: Number(userInfo.userId),
-			mediaId: Number(mediaId),
-			prisma,
-		});
-
-		if (authorizationError) {
-			return authorizationError;
-		}
-
-		// Not a matching mediaID to update
-		const matchingMedia = await prisma.media.findUnique({
+		await prisma.like.upsert({
+			create: {
+				mediaId: Number(mediaId),
+				userId: userInfo.userId,
+			},
+			update: {},
 			where: {
-				id: Number(mediaId),
+				userId_mediaId: { userId: userInfo.userId, mediaId: Number(mediaId) },
 			},
 		});
-		if (!matchingMedia) {
-			return {
-				userErrors: [
-					{
-						message: 'Not media matching request found',
-					},
-				],
-				media: null,
-			};
-		}
-
 		return {
-			userErrors: [],
-			media: prisma.media.update({
-				where: {
-					id: Number(mediaId),
+			userErrors: [
+				{
+					message: `Media with id: ${mediaId} has been liked by user ${userInfo.userName}`,
 				},
-				data: {
-					likes: {
-						connect: {
-							id: userInfo.userId,
-						},
-					},
+			],
+			media: null,
+		};
+	},
+	unLikeMedia: async (
+		parent: any,
+		{ mediaId }: LikeMediaArgs,
+		{ prisma, userInfo }: Context
+	): Promise<MediaPayloadType> => {
+		await prisma.like.delete({
+			where: {
+				userId_mediaId: {
+					mediaId: Number(mediaId),
+					userId: userInfo.userId,
 				},
-			}),
+			},
+		});
+		return {
+			userErrors: [
+				{
+					message: `Media with id: ${mediaId} has been unliked by user ${userInfo.userName}`,
+				},
+			],
+			media: null,
 		};
 	},
 };

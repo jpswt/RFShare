@@ -17,22 +17,12 @@ model Media {
   description String
   url String
   thumbnail String
-  likes Like[] 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   musicianId Int
   musician User @relation(fields: [musicianId], references: [id])
-  
+  likes Like[]
 }
-
-model Like{
-  id Int @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  username String
-  mediaId Int
-  media Media @relation(fields: [mediaId], references: [id])
-}
-
 model User {
   id Int @id @default(autoincrement())
   name String
@@ -42,6 +32,7 @@ model User {
   updatedAt DateTime @updatedAt
   media Media[]
   profile Profile?
+  likes Like[]
 }
 
 model Profile {
@@ -52,5 +43,14 @@ model Profile {
   updatedAt DateTime @updatedAt
   userId Int @unique
   user User @relation(fields: [userId],references: [id])
+}
+
+model Like {
+  mediaId Int 
+  media Media @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  userId Int
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId,mediaId])
 }
 

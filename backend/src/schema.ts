@@ -9,7 +9,8 @@ type Mutation {
     mediaDelete(mediaId: ID!): MediaPayload!
     userRegister(credentials: AuthInput!, name:String!): AuthPayload!
     userLogin(credentials: AuthInput!): AuthPayload!
-    likeMedia(mediaId:ID!, media: MediaInput): MediaPayload!
+    likeMedia(mediaId:ID!):MediaPayload!
+    unLikeMedia(mediaId:ID!):MediaPayload!
 }
 
 type Media {
@@ -20,15 +21,9 @@ type Media {
     url: String!
     thumbnail: String
     createdAt:String!
-    likes:[User!]!
     user:User!
+    likes:[Like]
 }
-
-# type Like {
-#     id: ID!
-#     username: String!
-#     createAt:String!
-# }
 
 type User {
     id:ID!
@@ -36,7 +31,6 @@ type User {
     email:String!
     profile:Profile
     media:[Media!]!
-    likedMedia:[Media!]!
 }
 
 type Profile {
@@ -46,10 +40,15 @@ type Profile {
     user:User!
 }
 
+type Like {
+    media: Media!
+    user: User!
+    createdAt:String!
+}
+
 type UserError{
     message:String!
 }
-
 
 type MediaPayload{
     userErrors: [UserError!]!
