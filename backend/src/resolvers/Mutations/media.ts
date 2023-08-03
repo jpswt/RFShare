@@ -237,3 +237,9 @@ export const mediaResolvers = {
 		};
 	},
 };
+
+// export const mediaLikesCount = {
+// 	likesCount: (parent: { likes: Like[] | null }) => {
+// 		return parent?.likes?.length ?? 10;
+// 	},
+// };

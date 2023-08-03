@@ -22,7 +22,8 @@ type Media {
     thumbnail: String
     createdAt:String!
     user:User!
-    likes:[Like]
+    likes:[Like!]!
+    likesCount:Int!
 }
 
 type User {
