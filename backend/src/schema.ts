@@ -1,6 +1,7 @@
 export const typeDefs = `#graphql
 type Query {
     media: [Media!]!
+    mediaLikes(mediaId: ID!):Media
 }
 
 type Mutation {
@@ -9,7 +10,7 @@ type Mutation {
     mediaDelete(mediaId: ID!): MediaPayload!
     userRegister(credentials: AuthInput!, name:String!): AuthPayload!
     userLogin(credentials: AuthInput!): AuthPayload!
-    likeMedia(mediaId:ID!):MediaPayload!
+    likeMedia(mediaId:ID!):LikePayload!
     unLikeMedia(mediaId:ID!):MediaPayload!
 }
 
@@ -22,7 +23,7 @@ type Media {
     thumbnail: String
     createdAt:String!
     user:User!
-    likes:[Like!]!
+    likes:[Like]
     likesCount:Int!
 }
 
@@ -49,6 +50,11 @@ type Like {
 
 type UserError{
     message:String!
+}
+
+type LikePayload{
+    userErrors:[UserError!]!
+    like: Like
 }
 
 type MediaPayload{
