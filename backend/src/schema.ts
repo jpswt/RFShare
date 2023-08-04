@@ -2,6 +2,8 @@ export const typeDefs = `#graphql
 type Query {
     media: [Media!]!
     mediaLikes(mediaId: ID!):Media
+    personal:User
+    profile(userId: ID!): Profile
 }
 
 type Mutation {
@@ -31,10 +33,10 @@ type User {
     id:ID!
     name:String!
     email:String!
-    profile:Profile
     media:[Media!]!
 }
 
+# access user info through profile, not the other way around
 type Profile {
     id:ID!
     bio:String

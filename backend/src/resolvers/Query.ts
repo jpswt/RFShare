@@ -33,4 +33,23 @@ export const Query = {
 			likesCount: media.likes.length,
 		};
 	},
+	personal: (parent: any, args: any, { prisma, userInfo }: Context) => {
+		if (!userInfo) return null;
+		return prisma.user.findUnique({
+			where: {
+				id: Number(userInfo.userId),
+			},
+		});
+	},
+	profile: (
+		parent: any,
+		{ userId }: { userId: string },
+		{ prisma }: Context
+	) => {
+		return prisma.profile.findUnique({
+			where: {
+				id: Number(userId),
+			},
+		});
+	},
 };

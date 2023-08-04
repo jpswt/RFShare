@@ -1,6 +1,6 @@
 import { Media, Like, Prisma } from '@prisma/client';
 import { Context } from '../../index';
-import { authorizedToUpdate } from '../../lib/authUpdate';
+import { authorizedToUpdate } from '../../utils/authUpdate';
 
 interface MediaArgs {
 	media: {

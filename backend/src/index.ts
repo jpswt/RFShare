@@ -2,11 +2,11 @@ import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { expressMiddleware as apolloMiddleWare } from '@apollo/server/express4';
 import { typeDefs } from './schema';
-import { Query, Mutation } from './resolvers';
+import { Query, Mutation, Profile, Media, User } from './resolvers';
 import { PrismaClient } from '@prisma/client';
 import express from 'express';
 import cors from 'cors';
-import { decodeToken } from './lib/decodeToken';
+import { decodeToken } from './utils/decodeToken';
 
 const PORT = 4000;
 
@@ -28,6 +28,9 @@ const apolloServer = new ApolloServer({
 	resolvers: {
 		Query,
 		Mutation,
+		Profile,
+		Media,
+		User,
 	},
 });
 
