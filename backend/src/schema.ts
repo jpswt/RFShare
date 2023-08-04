@@ -10,7 +10,7 @@ type Mutation {
     mediaDelete(mediaId: ID!): MediaPayload!
     userRegister(credentials: AuthInput!, name:String!): AuthPayload!
     userLogin(credentials: AuthInput!): AuthPayload!
-    likeMedia(mediaId:ID!):LikePayload!
+    likeMedia(mediaId:ID!):MediaPayload!
     unLikeMedia(mediaId:ID!):MediaPayload!
 }
 
