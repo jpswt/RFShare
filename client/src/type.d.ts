@@ -7,6 +7,8 @@ type Media = {
 	thumbnail: string;
 	createdAt: string;
 	user: User;
+	likes: [Like];
+	likesCount: number;
 };
 
 type User = {
@@ -14,4 +16,10 @@ type User = {
 	name: string;
 	email: string;
 	media: [Media];
+};
+
+type Like = {
+	media: Media;
+	user: User;
+	createdAt: string;
 };

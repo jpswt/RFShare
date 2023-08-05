@@ -3,7 +3,8 @@ type trackProps = {
 };
 
 const Media = ({ track }: trackProps) => {
-	console.log(track.thumbnail);
+	console.log(track);
+
 	return (
 		<tr>
 			<td>
@@ -17,6 +18,7 @@ const Media = ({ track }: trackProps) => {
 				<div className="flex items-center space-x-3">
 					<div>
 						<div className="font-bold">{track.artist}</div>
+						{track?.likes?.length}
 					</div>
 				</div>
 			</td>
