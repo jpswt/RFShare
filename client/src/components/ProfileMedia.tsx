@@ -4,7 +4,7 @@ type trackProps = {
 	track: Media;
 };
 
-const Media = ({ track }: trackProps) => {
+const ProfileMedia = ({ track }: trackProps) => {
 	console.log(track);
 
 	return (
@@ -42,4 +42,4 @@ const Media = ({ track }: trackProps) => {
 		</tr>
 	);
 };
-export default Media;
+export default ProfileMedia;

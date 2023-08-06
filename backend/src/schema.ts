@@ -41,6 +41,7 @@ type Profile {
     id:ID!
     bio:String
     image:String
+    currentProfile:Boolean!
     user:User!
 }
 

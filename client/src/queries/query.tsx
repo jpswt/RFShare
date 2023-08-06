@@ -10,6 +10,7 @@ export const GET_MEDIA = gql`
 			url
 			thumbnail
 			createdAt
+			likesCount
 			user {
 				name
 				email
@@ -18,17 +19,23 @@ export const GET_MEDIA = gql`
 	}
 `;
 
-export const MEDIA_LIKES = gql`
-	query MediaLikes($mediaId: ID!) {
-		mediaLikes(mediaId: $mediaId) {
-			id
-			title
-			artist
-			description
-			url
-			thumbnail
-			createdAt
-			likesCount
+export const GET_PROFILE = gql`
+	query GetProfile($userId: ID!) {
+		profile(userId: $userId) {
+			bio
+			image
+			user {
+				id
+				name
+				media {
+					id
+					thumbnail
+					title
+					description
+					url
+					createdAt
+				}
+			}
 		}
 	}
 `;

@@ -1,10 +1,10 @@
-import Media from './Media';
+import ProfileMedia from './ProfileMedia';
 
-type MediaProps = {
+type ProfileProps = {
 	media: Media[];
 };
 
-const MediaList = ({ media }: MediaProps) => {
+const ProfileList = ({ media }: ProfileProps) => {
 	return (
 		<div className="w-2/3 overflow-x-auto">
 			<table className="table">
@@ -21,11 +21,11 @@ const MediaList = ({ media }: MediaProps) => {
 				<tbody>
 					{/* row 1 */}
 					{media.map((track) => (
-						<Media track={track} key={track.id} />
+						<ProfileMedia track={track} key={track.id} />
 					))}
 				</tbody>
 			</table>
 		</div>
 	);
 };
-export default MediaList;
+export default ProfileList;

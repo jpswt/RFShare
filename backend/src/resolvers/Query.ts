@@ -41,15 +41,24 @@ export const Query = {
 			},
 		});
 	},
-	profile: (
+	profile: async (
 		parent: any,
 		{ userId }: { userId: string },
-		{ prisma }: Context
+		{ prisma, userInfo }: Context
 	) => {
-		return prisma.profile.findUnique({
+		//determine logged in user
+		const currentProfile = Number(userId) === userInfo?.userId;
+		const profile = await prisma.profile.findUnique({
 			where: {
 				id: Number(userId),
 			},
 		});
+
+		if (!profile) return null;
+
+		return {
+			...profile,
+			currentProfile,
+		};
 	},
 };
