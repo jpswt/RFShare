@@ -24,6 +24,7 @@ export const GET_PROFILE = gql`
 		profile(userId: $userId) {
 			bio
 			image
+			currentProfile
 			user {
 				id
 				name
