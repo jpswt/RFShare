@@ -5,17 +5,6 @@ interface MediaParent {
 	id: string;
 }
 
-// Before n+1 data loader
-// export const Media = {
-// 	user: (parent: MediaParent, args: any, { prisma }: Context) => {
-// 		return prisma.user.findUnique({
-// 			where: {
-// 				id: parent.musicianId,
-// 			},
-// 		});
-// 	},
-// };
-
 export const Media = {
 	user: (parent: MediaParent, args: any, { prisma }: Context) => {
 		return userLoader.load(parent.musicianId);
@@ -26,5 +15,13 @@ export const Media = {
 				mediaId: Number(parent.id),
 			},
 		});
+	},
+	likes: async (parent: MediaParent, args: any, { prisma }: Context) => {
+		return await prisma.like.findMany({
+			where: {
+				mediaId: Number(parent.id),
+			},
+		});
+		// Return the likes array or an empty array if media is not found
 	},
 };

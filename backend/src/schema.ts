@@ -2,6 +2,7 @@ export const typeDefs = `#graphql
 type Query {
     media: [Media!]!
     mediaLikes(mediaId: ID!):Media
+    likes(mediaId:ID!):Media
     personal:User
     profile(userId: ID!): Profile
 }

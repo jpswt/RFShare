@@ -40,3 +40,29 @@ export const GET_PROFILE = gql`
 		}
 	}
 `;
+
+export const LIKE_MEDIA = gql`
+	mutation LikeMedia($mediaId: ID!) {
+		likeMedia(mediaId: $mediaId) {
+			userErrors {
+				message
+			}
+			media {
+				id
+			}
+		}
+	}
+`;
+
+export const DISLIKE_MEDIA = gql`
+	mutation UnLikeMedia($mediaId: ID!) {
+		unLikeMedia(mediaId: $mediaId) {
+			userErrors {
+				message
+			}
+			media {
+				id
+			}
+		}
+	}
+`;

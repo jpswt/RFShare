@@ -1,10 +1,24 @@
-import { AiFillDislike, AiFillLike } from 'react-icons/ai';
+import { AiOutlineLike, AiFillLike } from 'react-icons/ai';
+import {
+	DISLIKE_MEDIA,
+	GET_MEDIA,
+	LIKE_MEDIA,
+	GET_PROFILE,
+} from '../queries/query';
+import { useMutation } from '@apollo/client';
 
 type trackProps = {
 	track: Media;
 };
 
 const Media = ({ track }: trackProps) => {
+	const [likeMedia] = useMutation(LIKE_MEDIA, {
+		refetchQueries: [GET_MEDIA, 'GetMedia'],
+	});
+
+	const [unLikeMedia] = useMutation(DISLIKE_MEDIA, {
+		refetchQueries: [GET_MEDIA, 'GetMedia'],
+	});
 	console.log(track);
 
 	return (
@@ -24,17 +38,41 @@ const Media = ({ track }: trackProps) => {
 			<td>{track.title}</td>
 			<td>{track.url}</td>
 			<td>
-				<div className="flex gap-4">
-					<div className=" flex gap-2 text-lg">
-						<div>
-							<AiFillLike />
+				{track.likesCount !== 0 ? (
+					<div className="flex gap-4">
+						<div className=" flex gap-2 text-xl text-teal-600">
+							<div
+								onClick={() =>
+									unLikeMedia({
+										variables: {
+											mediaId: track.id,
+										},
+									})
+								}
+							>
+								{track.likesCount !== 0 ? <AiFillLike /> : <AiOutlineLike />}
+							</div>
 						</div>
-						<div>
-							<AiFillDislike />
-						</div>
+						{track.likesCount}
 					</div>
-					{track.likesCount}
-				</div>
+				) : (
+					<div className="flex gap-4">
+						<div className=" flex gap-2 text-xl text-teal-600">
+							<div
+								onClick={() =>
+									likeMedia({
+										variables: {
+											mediaId: track.id,
+										},
+									})
+								}
+							>
+								{track.likesCount !== 0 ? <AiFillLike /> : <AiOutlineLike />}
+							</div>
+						</div>
+						{track.likesCount}
+					</div>
+				)}
 			</td>
 			<th>
 				<button className="btn btn-ghost btn-xs">details</button>
