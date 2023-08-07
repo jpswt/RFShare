@@ -33,24 +33,24 @@ export const Query = {
 			likesCount: media.likes.length,
 		};
 	},
-	likes: async (
-		parent: any,
-		{ mediaId }: LikeMediaArgs,
-		{ prisma }: Context
-	) => {
-		const media = await prisma.media.findUnique({
-			where: {
-				id: Number(mediaId),
-			},
-			include: {
-				likes: true,
-			},
-		});
-		return {
-			...media,
-			likes: media.likes || [],
-		};
-	},
+	// likes: async (
+	// 	parent: any,
+	// 	{ mediaId }: LikeMediaArgs,
+	// 	{ prisma }: Context
+	// ) => {
+	// 	const media = await prisma.media.findUnique({
+	// 		where: {
+	// 			id: Number(mediaId),
+	// 		},
+	// 		include: {
+	// 			likes: true,
+	// 		},
+	// 	});
+	// 	return {
+	// 		...media,
+	// 		likes: media?.likes || [],
+	// 	};
+	// },
 	personal: (parent: any, args: any, { prisma, userInfo }: Context) => {
 		if (!userInfo) return null;
 		return prisma.user.findUnique({

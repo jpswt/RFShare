@@ -2,7 +2,6 @@ export const typeDefs = `#graphql
 type Query {
     media: [Media!]!
     mediaLikes(mediaId: ID!):Media
-    likes(mediaId:ID!):Media
     personal:User
     profile(userId: ID!): Profile
 }
@@ -48,8 +47,9 @@ type Profile {
 
 type Like {
     media: Media!
+    mediaId:Int!
+    userId:Int!
     user: User!
-    createdAt:String!
 }
 
 type UserError{

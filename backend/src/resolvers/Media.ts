@@ -17,11 +17,25 @@ export const Media = {
 		});
 	},
 	likes: async (parent: MediaParent, args: any, { prisma }: Context) => {
-		return await prisma.like.findMany({
+		const media = await prisma.media.findUnique({
 			where: {
-				mediaId: Number(parent.id),
+				id: Number(parent.id),
+			},
+			include: {
+				likes: true,
 			},
 		});
-		// Return the likes array or an empty array if media is not found
+
+		const likes = media?.likes || [];
+
+		console.log('Media:', media);
+		console.log('Likes:', media?.likes);
+
+		// const validLikes = likes.map((like) => ({
+		// 	...like,
+		// 	mediaId: like.mediaId || '', // Ensure createdAt is never null
+		// }));
+
+		return likes;
 	},
 };

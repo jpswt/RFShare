@@ -20,6 +20,7 @@ const Media = ({ track }: trackProps) => {
 		refetchQueries: [GET_MEDIA, 'GetMedia'],
 	});
 	console.log(track);
+	console.log(track.likes);
 
 	return (
 		<tr>

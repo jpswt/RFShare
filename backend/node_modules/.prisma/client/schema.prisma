@@ -22,6 +22,7 @@ model Media {
   musicianId Int
   musician User @relation(fields: [musicianId], references: [id])
   likes Like[]
+  likesCount Int @default(0)
 }
 model User {
   id Int @id @default(autoincrement())
