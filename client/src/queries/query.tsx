@@ -38,6 +38,7 @@ export const GET_PROFILE = gql`
 					id
 					thumbnail
 					title
+					artist
 					description
 					url
 					createdAt

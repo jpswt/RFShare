@@ -9,6 +9,8 @@ interface RegisterArgs {
 		password: string;
 	};
 	name: string;
+	bio: string;
+	image: string;
 }
 
 interface LoginArgs {
@@ -28,7 +30,7 @@ interface UserPayloadType {
 export const authResolvers = {
 	userRegister: async (
 		parent: any,
-		{ credentials, name }: RegisterArgs,
+		{ credentials, name, bio, image }: RegisterArgs,
 		{ prisma }: Context
 	): Promise<UserPayloadType> => {
 		const { email, password } = credentials;
@@ -95,6 +97,15 @@ export const authResolvers = {
 				name,
 				email,
 				password: hash,
+				profile: {
+					create: {
+						bio,
+						image,
+					},
+				},
+			},
+			include: {
+				profile: true,
 			},
 		});
 		// sign JWT token

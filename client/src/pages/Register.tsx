@@ -26,10 +26,11 @@ const Register = () => {
 					name: name,
 				},
 			});
-			navigate('/login');
 		} catch (error) {
 			console.log(error);
+			return error;
 		}
+		navigate('/login');
 	};
 
 	useEffect(() => {

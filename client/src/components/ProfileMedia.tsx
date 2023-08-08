@@ -16,24 +16,12 @@ const ProfileMedia = ({ track }: trackProps) => {
 					</div>
 				</div>
 			</td>
-			<td>
-				<div className="flex items-center space-x-3">
-					<div className="font-bold">{track.artist}</div>
-				</div>
-			</td>
 			<td>{track.title}</td>
 			<td>{track.url}</td>
 			<td>
 				<div className="flex gap-4">
-					<div className=" flex gap-2 text-lg">
-						<div>
-							<AiFillLike />
-						</div>
-						<div>
-							<AiFillDislike />
-						</div>
-					</div>
-					{track.likesCount}
+					{track.likesCount > 0 ? track.likesCount : 0}{' '}
+					{track.likesCount === 1 ? 'Like' : 'Likes'}
 				</div>
 			</td>
 			<th>

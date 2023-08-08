@@ -23,15 +23,24 @@ const Profile = () => {
 	const { profile } = data;
 	console.log(profile);
 
+	if (profile === null) return <div>Profile does not exist</div>;
+
 	return (
 		<div className=" flex h-screen flex-col items-center">
 			<div className="flex">
-				<div>
-					<h1>{profile.user.name}</h1>
-					<p>{profile.bio}</p>
+				<div className="flex items-center gap-6  ">
+					<img
+						src={profile.image}
+						className=" h-20 w-20 rounded-[50%] "
+						alt=""
+					/>
+					<div>
+						<h1>{profile?.user?.name}</h1>
+						<p>{profile?.bio}</p>
+					</div>
 				</div>
 				<div>
-					{profile.currentProfile ? (
+					{profile?.currentProfile ? (
 						<div>
 							<button className="btn btn-primary">Primary</button>
 							<AddMedia
@@ -57,7 +66,7 @@ const Profile = () => {
 				</div>
 			</div>
 
-			<ProfileList media={profile.user.media} />
+			<ProfileList media={profile?.user?.media} />
 		</div>
 	);
 };

@@ -1,12 +1,7 @@
-import { AiOutlineLike, AiFillLike } from 'react-icons/ai';
 import { PiHeartDuotone, PiHeartLight } from 'react-icons/pi';
-import {
-	DISLIKE_MEDIA,
-	GET_MEDIA,
-	LIKE_MEDIA,
-	GET_PROFILE,
-} from '../queries/query';
+import { DISLIKE_MEDIA, GET_MEDIA, LIKE_MEDIA } from '../queries/query';
 import { useMutation } from '@apollo/client';
+import { useNavigate, Link } from 'react-router-dom';
 
 type trackProps = {
 	track: Media;
@@ -34,7 +29,9 @@ const Media = ({ track }: trackProps) => {
 			</td>
 			<td>
 				<div className="flex items-center space-x-3">
-					<div className="font-bold">{track.artist}</div>
+					<Link to={`/profile/${track.user.id}`}>
+						<div className="font-bold">{track.artist}</div>
+					</Link>
 				</div>
 			</td>
 			<td>{track.title}</td>

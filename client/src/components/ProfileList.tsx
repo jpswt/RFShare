@@ -12,7 +12,6 @@ const ProfileList = ({ media }: ProfileProps) => {
 				<thead>
 					<tr>
 						<th></th>
-						<th>Artist</th>
 						<th>Title</th>
 						<th>Track</th>
 						<th>Likes</th>
