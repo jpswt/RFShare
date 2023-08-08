@@ -11,7 +11,13 @@ export const GET_MEDIA = gql`
 			thumbnail
 			createdAt
 			likesCount
+			likes {
+				mediaId
+				userId
+			}
+			likedByCurrentUser
 			user {
+				id
 				name
 				email
 			}
@@ -63,6 +69,20 @@ export const DISLIKE_MEDIA = gql`
 			media {
 				id
 			}
+		}
+	}
+`;
+
+export const USER_REGISTER = gql`
+	mutation RegisterUser($email: String, $password: String, $name: String) {
+		userRegister(
+			credentials: { email: $email, password: $password }
+			name: $name
+		) {
+			userErrors {
+				message
+			}
+			token
 		}
 	}
 `;

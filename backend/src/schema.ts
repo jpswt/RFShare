@@ -27,6 +27,7 @@ type Media {
     user:User!
     likes:[Like!]!
     likesCount:Int!
+    likedByCurrentUser: Boolean!
 }
 
 type User {

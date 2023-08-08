@@ -9,6 +9,7 @@ type Media = {
 	user: User;
 	likes: [Like];
 	likesCount: number;
+	likedByCurrentUser: boolean;
 };
 
 type User = {
@@ -21,5 +22,7 @@ type User = {
 type Like = {
 	media: Media;
 	user: User;
+	mediaId: number;
+	userId: number;
 	createdAt: string;
 };

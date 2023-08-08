@@ -28,14 +28,31 @@ export const Media = {
 
 		const likes = media?.likes || [];
 
-		console.log('Media:', media);
-		console.log('Likes:', media?.likes);
-
-		// const validLikes = likes.map((like) => ({
-		// 	...like,
-		// 	mediaId: like.mediaId || '', // Ensure createdAt is never null
-		// }));
+		// console.log('Media:', media);
+		// console.log('Likes:', media?.likes);
 
 		return likes;
+	},
+	likedByCurrentUser: async (
+		parent: MediaParent,
+		args: any,
+		{ prisma, userInfo }: Context
+	) => {
+		if (!userInfo) {
+			return false; // User not logged in, not liked
+		}
+
+		const likedMedia = await prisma.media.findFirst({
+			where: {
+				id: Number(parent.id),
+				likes: {
+					some: {
+						userId: userInfo.userId,
+					},
+				},
+			},
+		});
+
+		return Boolean(likedMedia);
 	},
 };

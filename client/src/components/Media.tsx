@@ -1,4 +1,5 @@
 import { AiOutlineLike, AiFillLike } from 'react-icons/ai';
+import { PiHeartDuotone, PiHeartLight } from 'react-icons/pi';
 import {
 	DISLIKE_MEDIA,
 	GET_MEDIA,
@@ -39,9 +40,9 @@ const Media = ({ track }: trackProps) => {
 			<td>{track.title}</td>
 			<td>{track.url}</td>
 			<td>
-				{track.likesCount !== 0 ? (
-					<div className="flex gap-4">
-						<div className=" flex gap-2 text-xl text-teal-600">
+				<div className="flex gap-4">
+					<div className=" flex gap-2 text-xl text-teal-600">
+						{track.likedByCurrentUser ? (
 							<div
 								onClick={() =>
 									unLikeMedia({
@@ -51,14 +52,9 @@ const Media = ({ track }: trackProps) => {
 									})
 								}
 							>
-								{track.likesCount !== 0 ? <AiFillLike /> : <AiOutlineLike />}
+								<PiHeartDuotone />
 							</div>
-						</div>
-						{track.likesCount}
-					</div>
-				) : (
-					<div className="flex gap-4">
-						<div className=" flex gap-2 text-xl text-teal-600">
+						) : (
 							<div
 								onClick={() =>
 									likeMedia({
@@ -68,12 +64,13 @@ const Media = ({ track }: trackProps) => {
 									})
 								}
 							>
-								{track.likesCount !== 0 ? <AiFillLike /> : <AiOutlineLike />}
+								<PiHeartLight />
 							</div>
-						</div>
-						{track.likesCount}
+						)}
 					</div>
-				)}
+					{track.likesCount}{' '}
+					{track.likesCount === 0 || track.likesCount > 1 ? 'Likes' : 'Like'}
+				</div>
 			</td>
 			<th>
 				<button className="btn btn-ghost btn-xs">details</button>

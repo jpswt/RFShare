@@ -15,7 +15,8 @@ const MediaList = ({ media }: MediaProps) => {
 						<th>Artist</th>
 						<th>Title</th>
 						<th>Track</th>
-						<th>Likes</th>
+						<th>Give it a Like!</th>
+						<th>More Info</th>
 					</tr>
 				</thead>
 				<tbody>
