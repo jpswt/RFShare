@@ -74,11 +74,22 @@ export const DISLIKE_MEDIA = gql`
 `;
 
 export const USER_REGISTER = gql`
-	mutation RegisterUser($email: String, $password: String, $name: String) {
+	mutation RegisterUser($email: String!, $password: String!, $name: String!) {
 		userRegister(
 			credentials: { email: $email, password: $password }
 			name: $name
 		) {
+			userErrors {
+				message
+			}
+			token
+		}
+	}
+`;
+
+export const USER_LOGIN = gql`
+	mutation LoginUser($email: String!, $password: String!) {
+		userLogin(credentials: { email: $email, password: $password }) {
 			userErrors {
 				message
 			}

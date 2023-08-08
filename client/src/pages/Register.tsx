@@ -1,27 +1,35 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { USER_REGISTER } from '../queries/query';
 import { useMutation } from '@apollo/client';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
 	const [email, setEmail] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 	const [name, setName] = useState<string>('');
 
-	const [userRegister, { data, loading }] = useMutation(USER_REGISTER);
+	const navigate = useNavigate();
+
+	const [userRegister, { data }] = useMutation(USER_REGISTER);
 	console.log(data);
 
 	const [error, setError] = useState(null);
 	console.log(email, password, name);
 
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+	const handleRegister = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		userRegister({
-			variables: {
-				email: email,
-				password: password,
-				name: name,
-			},
-		});
+		try {
+			userRegister({
+				variables: {
+					email: email,
+					password: password,
+					name: name,
+				},
+			});
+			navigate('/login');
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	useEffect(() => {
@@ -36,7 +44,7 @@ const Register = () => {
 		<div className=" flex h-screen flex-col items-center justify-center">
 			<form
 				className=" flex w-screen flex-col items-center justify-center gap-4"
-				onSubmit={handleSubmit}
+				onSubmit={handleRegister}
 			>
 				<div>
 					<input
@@ -67,7 +75,7 @@ const Register = () => {
 				</div>
 				{error && <p>{error}</p>}
 				<button type="submit" className="btn btn-primary">
-					Primary
+					Register
 				</button>
 			</form>
 		</div>
