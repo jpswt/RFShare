@@ -69,7 +69,7 @@ const Profile = () => {
 				</div>
 			</div>
 
-			<ProfileList media={profile?.user?.media} />
+			<ProfileList media={profile.user.media} />
 		</div>
 	);
 };

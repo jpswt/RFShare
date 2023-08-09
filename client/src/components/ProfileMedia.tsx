@@ -1,5 +1,3 @@
-import { AiFillDislike, AiFillLike } from 'react-icons/ai';
-
 type trackProps = {
 	track: Media;
 };

@@ -35,6 +35,7 @@ type User {
     name:String!
     email:String!
     media:[Media!]!
+    profile:Profile
 }
 
 # access user info through profile, not the other way around

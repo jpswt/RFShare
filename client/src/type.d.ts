@@ -17,6 +17,7 @@ type User = {
 	name: string;
 	email: string;
 	media: [Media];
+	profile: Profile;
 };
 
 type Like = {
@@ -28,6 +29,7 @@ type Like = {
 };
 
 type Profile = {
+	id: string;
 	bio: string;
 	image: string;
 	currentProfile: boolean;

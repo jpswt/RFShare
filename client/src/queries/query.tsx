@@ -20,6 +20,9 @@ export const GET_MEDIA = gql`
 				id
 				name
 				email
+				profile {
+					id
+				}
 			}
 		}
 	}
@@ -42,6 +45,7 @@ export const GET_PROFILE = gql`
 					description
 					url
 					createdAt
+					likesCount
 				}
 			}
 		}
