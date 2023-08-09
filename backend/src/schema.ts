@@ -44,6 +44,7 @@ type Profile {
     image:String
     currentProfile:Boolean!
     user:User!
+    userId: Int!
 }
 
 type Like {

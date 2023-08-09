@@ -9,6 +9,8 @@ const Profile = () => {
 	const [openAddMediaModal, setOpenAddMediaModal] = useState<boolean>(false);
 	const [newTrack, setNewTrack] = useState<string>('');
 
+	// const userId = new URLSearchParams(window.location.search).get('userId')
+
 	const { id } = useParams();
 	const { data, error, loading } = useQuery(GET_PROFILE, {
 		variables: {

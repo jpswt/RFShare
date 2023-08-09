@@ -14,10 +14,10 @@ const Login = () => {
 	const [error, setError] = useState(null);
 	console.log(email, password);
 
-	const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
+	const handleLogin = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		try {
-			await userLogin({
+			userLogin({
 				variables: {
 					email: email,
 					password: password,

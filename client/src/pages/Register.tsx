@@ -26,7 +26,7 @@ const Register = () => {
 					name: name,
 				},
 			});
-			navigate('/login');
+			// navigate('/login');
 		} catch (error) {
 			console.log(error);
 			return error;
@@ -37,10 +37,13 @@ const Register = () => {
 		if (data) {
 			if (data.userRegister.userErrors.length) {
 				setError(data.userRegister.userErrors[0].message);
+			} else {
+				navigate('/login');
 			}
-			if (data.userLogin.token) {
-				localStorage.setItem('token', data.userLogin.token);
-			}
+			// if (data.userLogin.token) {
+			// 	localStorage.setItem('token', data.userLogin.token);
+			// 	navigate('/login');
+			// }
 		}
 	}, [data]);
 
