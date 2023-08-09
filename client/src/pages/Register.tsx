@@ -26,17 +26,20 @@ const Register = () => {
 					name: name,
 				},
 			});
+			navigate('/login');
 		} catch (error) {
 			console.log(error);
 			return error;
 		}
-		navigate('/login');
 	};
 
 	useEffect(() => {
 		if (data) {
 			if (data.userRegister.userErrors.length) {
 				setError(data.userRegister.userErrors[0].message);
+			}
+			if (data.userLogin.token) {
+				localStorage.setItem('token', data.userLogin.token);
 			}
 		}
 	}, [data]);

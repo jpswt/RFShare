@@ -14,16 +14,15 @@ const Login = () => {
 	const [error, setError] = useState(null);
 	console.log(email, password);
 
-	const handleLogin = (e: FormEvent<HTMLFormElement>) => {
+	const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		try {
-			userLogin({
+			await userLogin({
 				variables: {
 					email: email,
 					password: password,
 				},
 			});
-			navigate('/media');
 		} catch (error) {
 			console.log(error);
 		}
@@ -36,6 +35,7 @@ const Login = () => {
 			}
 			if (data.userLogin.token) {
 				localStorage.setItem('token', data.userLogin.token);
+				navigate('/media');
 			}
 		}
 	}, [data]);

@@ -26,3 +26,10 @@ type Like = {
 	userId: number;
 	createdAt: string;
 };
+
+type Profile = {
+	bio: string;
+	image: string;
+	currentProfile: boolean;
+	user: User;
+};
