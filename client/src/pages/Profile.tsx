@@ -9,8 +9,6 @@ const Profile = () => {
 	const [openAddMediaModal, setOpenAddMediaModal] = useState<boolean>(false);
 	const [newTrack, setNewTrack] = useState<string>('');
 
-	// const userId = new URLSearchParams(window.location.search).get('userId')
-
 	const { id } = useParams();
 	const { data, error, loading } = useQuery(GET_PROFILE, {
 		variables: {
@@ -25,7 +23,7 @@ const Profile = () => {
 	const { profile } = data;
 	console.log(profile);
 
-	// if (profile === null) return <div>Profile does not exist</div>;
+	if (profile === null) return <div>Profile does not exist</div>;
 	return (
 		<div className=" flex h-screen flex-col items-center">
 			<div className="flex">
@@ -43,13 +41,38 @@ const Profile = () => {
 				<div>
 					{profile.currentProfile ? (
 						<div>
-							<button className="btn btn-primary">Primary</button>
+							{/* Open the modal using ID.showModal() method */}
+							<button
+								className="btn"
+								onClick={() => {
+									if (document) {
+										(
+											document.getElementById('my_modal_1') as HTMLFormElement
+										).showModal();
+									}
+								}}
+							>
+								open modal
+							</button>
+							<dialog id="my_modal_1" className="modal">
+								<form method="dialog" className="modal-box">
+									<h3 className="text-lg font-bold">Hello!</h3>
+									<p className="py-4">
+										Press ESC key or click the button below to close
+									</p>
+									<div className="modal-action">
+										{/* if there is a button in form, it will close the modal */}
+										<button className="btn">Close</button>
+									</div>
+								</form>
+							</dialog>
+							{/* <button className="btn btn-primary">Primary</button>
 							<AddMedia
 								openModal={openAddMediaModal}
 								setOpenModal={setOpenAddMediaModal}
 							>
 								<form method="dialog">
-									<h3 className="text-lg font-bold">Edit Task</h3>
+									<h3 className="text-lg font-bold">Add Media</h3>
 									<div className=" mt-4 flex gap-4">
 										<input
 											onChange={(e) => setNewTrack(e.target.value)}
@@ -61,7 +84,7 @@ const Profile = () => {
 										<button className="btn btn-accent">Update</button>
 									</div>
 								</form>
-							</AddMedia>
+							</AddMedia> */}
 						</div>
 					) : (
 						<button>Not Working</button>
