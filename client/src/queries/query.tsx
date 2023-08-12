@@ -102,3 +102,31 @@ export const USER_LOGIN = gql`
 		}
 	}
 `;
+
+export const CREATE_MEDIA = gql`
+	mutation CreateMedia(
+		$title: String!
+		$description: String!
+		$url: String!
+		$thumbnail: String
+	) {
+		mediaCreate(
+			media: {
+				title: $title
+				description: $description
+				url: $url
+				thumbnail: $thumbnail
+			}
+		) {
+			userErrors {
+				message
+			}
+			media {
+				id
+				title
+				description
+				createdAt
+			}
+		}
+	}
+`;
