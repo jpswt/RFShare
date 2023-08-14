@@ -11,6 +11,7 @@ const MediaSubs = () => {
 	if (error) return <div>Error Page</div>;
 	if (loading) return <div>Loading...</div>;
 	const { media } = data;
+	console.log(media);
 
 	return (
 		<div className=" flex h-screen flex-col items-center ">
