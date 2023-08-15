@@ -2,7 +2,7 @@ import { CREATE_MEDIA, GET_PROFILE } from '../queries/query';
 import { useMutation } from '@apollo/client';
 import { v4 } from 'uuid';
 import { storage } from '../firebase/firebase';
-import { ref, uploadBytes } from 'firebase/storage';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useState, FormEvent } from 'react';
 
 const AddMedia = () => {
@@ -25,7 +25,7 @@ const AddMedia = () => {
 		if (files) {
 			setMedia(files[0]);
 		}
-		setUrl(files[0].name);
+		// setUrl(files[0].name);
 	};
 
 	const uploadMedia = () => {
@@ -37,8 +37,11 @@ const AddMedia = () => {
 		if (media) {
 			const mediaRef = ref(storage, `media/${Key}`);
 			uploadBytes(mediaRef, media).then(() => {
-				setIsLoading(false);
-				alert('Media Uploaded');
+				getDownloadURL(mediaRef).then((downloadURL) => {
+					setUrl(downloadURL);
+					setIsLoading(false);
+					alert('Media Uploaded');
+				});
 			});
 		}
 	};

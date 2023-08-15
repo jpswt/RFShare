@@ -4,7 +4,7 @@ import { GET_MEDIA } from '../queries/query';
 
 const MediaSubs = () => {
 	const { data, error, loading } = useQuery(GET_MEDIA, {
-		fetchPolicy: 'cache-first',
+		fetchPolicy: 'cache-and-network',
 		pollInterval: 500,
 	});
 

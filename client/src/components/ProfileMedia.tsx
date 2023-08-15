@@ -1,3 +1,6 @@
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
+
 type trackProps = {
 	track: Media;
 };
@@ -15,7 +18,9 @@ const ProfileMedia = ({ track }: trackProps) => {
 				</div>
 			</td>
 			<td>{track.title}</td>
-			<td>{track.url}</td>
+			<td>
+				<AudioPlayer autoPlay src={track.url} layout="horizontal" />
+			</td>
 			<td>
 				<div className="flex gap-4">
 					{track.likesCount > 0 ? track.likesCount : 0}{' '}
