@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const GET_MEDIA = gql`
+export const GET_MEDIA2 = gql`
 	query MediaWithUser {
 		media {
 			id
@@ -20,9 +20,6 @@ export const GET_MEDIA = gql`
 				id
 				name
 				email
-				profile {
-					id
-				}
 			}
 		}
 	}

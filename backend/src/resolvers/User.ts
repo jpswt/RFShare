@@ -16,11 +16,11 @@ export const User = {
 		});
 	},
 
-	profile: (parent: UserParent, args: any, { prisma }: Context) => {
-		return prisma.profile.findUnique({
-			where: {
-				userId: parent.id,
-			},
-		});
-	},
+	// profile: (parent: UserParent, args: any, { prisma }: Context) => {
+	// 	return prisma.profile.findUnique({
+	// 		where: {
+	// 			userId: parent.id,
+	// 		},
+	// 	});
+	// },
 };

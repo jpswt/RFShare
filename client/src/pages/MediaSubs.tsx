@@ -1,12 +1,9 @@
 import { useQuery } from '@apollo/client';
 import MediaList from '../components/MediaList';
-import { GET_MEDIA } from '../queries/query';
+import { GET_MEDIA2 } from '../queries/query';
 
 const MediaSubs = () => {
-	const { data, error, loading } = useQuery(GET_MEDIA, {
-		fetchPolicy: 'cache-and-network',
-		pollInterval: 500,
-	});
+	const { data, error, loading } = useQuery(GET_MEDIA2);
 
 	if (error) return <div>Error Page</div>;
 	if (loading) return <div>Loading...</div>;
