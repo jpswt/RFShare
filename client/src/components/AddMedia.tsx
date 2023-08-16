@@ -16,7 +16,7 @@ const AddMedia = () => {
 
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
-	const [url, setUrl] = useState({});
+	const [url, setUrl] = useState('');
 	const [thumbnail, setThumbnail] = useState('Testing');
 
 	console.log(title, description, url);

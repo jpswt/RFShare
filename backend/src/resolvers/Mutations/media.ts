@@ -31,7 +31,7 @@ export const mediaResolvers = {
 	): Promise<MediaPayloadType> => {
 		const { title, artist, url, description, thumbnail } = media;
 		// Items must be included for media upload
-		if (!title || !artist || !url) {
+		if (!title || !description || !url) {
 			return {
 				userErrors: [
 					{
@@ -57,7 +57,7 @@ export const mediaResolvers = {
 			media: await prisma.media.create({
 				data: {
 					title,
-					artist,
+					artist: userInfo.userName,
 					description,
 					url,
 					thumbnail,
