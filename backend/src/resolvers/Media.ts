@@ -42,7 +42,7 @@ export const Media = {
 			return false; // User not logged in, not liked
 		}
 
-		const likedMedia = await prisma.media.findFirst({
+		const likedMedia = await prisma.media.findUnique({
 			where: {
 				id: Number(parent.id),
 				likes: {

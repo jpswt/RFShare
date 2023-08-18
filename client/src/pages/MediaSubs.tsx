@@ -3,12 +3,14 @@ import MediaList from '../components/MediaList';
 import { GET_MEDIA2 } from '../queries/query';
 
 const MediaSubs = () => {
-	const { data, error, loading } = useQuery(GET_MEDIA2);
+	const { data, error, loading } = useQuery(GET_MEDIA2, {
+		fetchPolicy: 'network-only',
+	});
 
 	if (error) return <div>Error Page</div>;
 	if (loading) return <div>Loading...</div>;
 	const { media } = data;
-	console.log(media);
+	// console.log(media);
 
 	return (
 		<div className=" flex h-screen flex-col items-center ">

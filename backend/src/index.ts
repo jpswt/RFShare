@@ -41,6 +41,7 @@ app.use(
 		context: async ({ req }: any): Promise<Context> => {
 			// set userInfo to return req header with token info used in lib/decodeToken Function
 			const userInfo = await decodeToken(req.headers.authorization);
+			console.log(userInfo);
 			return {
 				prisma,
 				userInfo,

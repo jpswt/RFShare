@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const GET_MEDIA2 = gql`
-	query MediaWithUser {
+	query GetMedia {
 		media {
 			id
 			title
